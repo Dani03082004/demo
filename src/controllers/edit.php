@@ -5,5 +5,6 @@
 
     // sacar datos del libro id correspondiente
     $db=connectMysql($dsn,$dbuser,$dbpassword);
-    $book=query($db,"SELECT * FROM books WHERE id={$id}");
-    dd($book);
+    $book=query($db,"SELECT * FROM books WHERE id={$id} LIMIT 1");
+    $book=$book[0];
+    require VIEWS.'/edit.view.php';
