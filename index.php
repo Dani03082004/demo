@@ -4,10 +4,8 @@
     require 'helper.php';
     require 'src/database.php';
 
-    print '<br>';
-    // $db=connectMysql($dsn,$dbuser,$dbpassword); // 1 metodo para crear una base de datos
+     // $db=connectMysql($dsn,$dbuser,$dbpassword); // 1 metodo para crear una base de datos
     // $db=connectSqlite($dbname);  // 2 metodo para crear una base de datos
-    var_dump($db);
     $controller=router($routes);
 
 

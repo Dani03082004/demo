@@ -65,18 +65,48 @@
             return false;
         } catch (PDOException $e) {
             die($e->getMessage());
+        }
     }
 }
-    }
         // Otra manera de hacerlo
 
         /* foreach($values as $value){
             $lista_values.='';
         }*/
 
-    function update($db,$table,$data){
+    function update(PDO $db,string $table, int $id,array $data){
+        if(is_array($data)){
+        $lista_assign=[];
+        foreach ($data as $key => $value){
+            $lista_assign[]=$key.'=?';
+        }
+        $lista_assign=implode(',',$lista_assign);
+        $sql="UPDATE {$table} SET {$lista_assign} WHERE id={$id}";
+        try{
+            $stmt=$db->prepare($sql);
+            if($stmt->execute(array_values($data))){
+                return true;
+            }
+            return false;
+        }catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }else{
+        throw new Exception("Exception: No data to modify");
     }
+    
+}
 
-    function delete($db,$table,$condition){
-
+function deletebooks(PDO $db, string $table,int $id) {
+    $sql = "DELETE FROM {$table} WHERE id = ?";
+    try {
+        $stmt = $db->prepare($sql);
+        if ($stmt->execute([$id])) {
+            return true; 
+        } else {
+            return false; 
+        }
+    } catch (PDOException $e) {
+        return false; 
     }
+}
